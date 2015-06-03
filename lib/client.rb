@@ -3,33 +3,27 @@ require 'httparty'
 
 class SamplParty
   include HTTParty
-  base_uri "http://localhost:4567"
+  base_uri "http://10.0.0.110:4567"
 
-  def play_harder(version=nil)
+  def beats(name, version = nil )
     options = {}
-    if version
+     if version
       options = { query: { v: version } }
-    end
-    self.class.post("/harder", options)
-  end
-
-  def play_beat
-    self.class.post("/beat")
+     end
+    self.class.post("/#{name}", options)
   end
 end
 
+
+
+
 toy = SamplParty.new
-toy.play_beat
-sleep 5
-toy.play_harder(2)
+toy.beats('harder', 2)
 sleep 0.5
-toy.play_harder
-sleep 1
-toy.play_harder
-toy.play_harder(2)
-sleep 1
-toy.play_beat
-sleep 1
-toy.play_beat
+toy.beats('ever', 3)
+sleep 0.10
+
+
+
 
 puts "Cool cool cool ..."
