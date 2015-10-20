@@ -1,35 +1,31 @@
-require 'pry'
 require 'httparty'
 
 class SamplParty
   include HTTParty
   base_uri "http://localhost:4567"
 
-  def play_harder(version=nil)
+  def play(sound, version=nil)
     options = {}
     if version
       options = { query: { v: version } }
     end
-    self.class.post("/harder", options)
+    self.class.post("/#{sound}", options)
   end
 
-  def play_beat
-    self.class.post("/beat")
-  end
 end
 
 toy = SamplParty.new
-toy.play_beat
+toy.play('beat')
 sleep 5
-toy.play_harder(2)
+toy.play('harder', 1)
 sleep 0.5
-toy.play_harder
+toy.play('harder', 1)
 sleep 1
-toy.play_harder
-toy.play_harder(2)
+toy.play('harder', 2)
+toy.play('harder', 1)
 sleep 1
-toy.play_beat
+toy.play('harder', 2)
 sleep 1
-toy.play_beat
+toy.play('harder', 1)
 
 puts "Cool cool cool ..."
